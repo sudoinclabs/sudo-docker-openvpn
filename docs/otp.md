@@ -1,7 +1,7 @@
 # Using two factor authentication for users
 
-Instead of relying on complex passwords for client certificates (that usually get written somewhere) this image
-provides support for two factor authentication with OTP devices.
+We at SUDO don't reocmmend removing passwords for client certificates, those passwords still provide protection in situations where client certificate is compromised.
+
 
 The most common app that provides OTP generation is Google Authenticator ([iOS](https://itunes.apple.com/it/app/google-authenticator/id388497605?mt=8) and
 [Android](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=it)) you can download it
@@ -17,9 +17,9 @@ In order to enable two factor authentication the following steps are required.
 
         docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://vpn.example.com -2 -C $CIPHER
 
-* Generate your client certificate (possibly without a password since you're using OTP)
+* Generate your client certificate
 
-        docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full <user> nopass
+        docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full <user>
 
 * Generate authentication configuration for your client. -t is needed to show QR code, -i is optional for interactive usage
 

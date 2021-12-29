@@ -92,6 +92,7 @@ usage() {
     echo
     echo "optional arguments:"
     echo " -2    Enable two factor authentication using Google Authenticator."
+    echo " -3    Enable two factor authentication using Duo."
     echo " -a    Authenticate  packets with HMAC using the given message digest algorithm (auth)."
     echo " -b    Disable 'push block-outside-dns'"
     echo " -c    Enable client-to-client option"
@@ -250,6 +251,9 @@ while getopts ":a:e:E:C:T:r:s:du:bcp:n:k:DNm:f:tz2" opt; do
         2)
             OVPN_OTP_AUTH=1
             ;;
+        3)
+            OVPN_DUO_AUTH=1
+            ;;
         f)
             OVPN_FRAGMENT="$OPTARG"
             ;;
@@ -385,6 +389,15 @@ cat $TMP_PUSH_CONFIGFILE >> "$conf"
 if [ -n "${OVPN_OTP_AUTH:-}" ]; then
     echo -e "\n\n# Enable OTP+PAM for user authentication" >> "$conf"
     echo "plugin /usr/lib/openvpn/plugins/openvpn-plugin-auth-pam.so openvpn" >> "$conf"
+    echo "reneg-sec 0" >> "$conf"
+fi
+
+# Append optional OTP authentication support
+# https://duo.com/docs/openvpn
+if [ -n "${OVPN_DUO_AUTH:-}" ]; then
+    echo -e "\n\n# Enable Duo for user authentication" >> "$conf"
+    echo -e "\n\n# For support: support@sudoconsultants.com" >> "$conf"
+    echo "plugin /opt/duo/duo_openvpn.so $DUO_IKEY $DUO_SKEY $DUO_HOST" >> "$conf"
     echo "reneg-sec 0" >> "$conf"
 fi
 
