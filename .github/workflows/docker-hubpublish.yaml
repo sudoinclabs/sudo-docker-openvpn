@@ -31,7 +31,7 @@ jobs:
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       - name: Publish and release the new version
         env:
-          LATEST: ${{ steps.current_tag.outputs.tag }} }}
+          LATEST: ${{ steps.current_tag.outputs.tag }}
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           docker tag openvpn sudoinclabs/openvpn:$LATEST
