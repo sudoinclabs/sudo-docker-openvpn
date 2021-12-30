@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/kylemanna/docker-openvpn.svg)](https://travis-ci.org/sudoinclabs/sudo-docker-openvpn)
 [![Docker Stars](https://img.shields.io/docker/stars/sudoinclabs/openvpn.svg)](https://hub.docker.com/r/sudoinclabs/openvpn)
 [![Docker Pulls](https://img.shields.io/docker/pulls/sudoinclabs/openvpn.svg)](https://hub.docker.com/r/sudoinclabs/openvpn/)
-[![ImageLayers](https://images.microbadger.com/badges/image/sudoinclabs/openvpn.svg)](https://microbadger.com/#/images/sudoinclabs/openvpn)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsudoinclabs%2Fsudo-docker-openvpn.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsudoinclabs%2Fsudo-docker-openvpn?ref=badge_shield)
 
 
