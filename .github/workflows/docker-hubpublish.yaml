@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+      - name: Get Latest Release
+        id: latest_version
+        uses: abatilo/release-info-action@v1.3.0
+        with:
+          owner: abatilo
+          repo: release-info-action
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub
@@ -26,12 +32,6 @@ jobs:
         run: |
           docker tag openvpn sudoinclabs/openvpn:latest
           docker push --all-tags sudoinclabs/openvpn
-      - name: Get Latest Release
-        id: latest_version
-        uses: abatilo/release-info-action@v1.3.0
-        with:
-          owner: abatilo
-          repo: release-info-action
       - name: Example of consumption of the output
         env:
           LATEST: ${{ steps.latest_version.outputs.latest_tag }}
