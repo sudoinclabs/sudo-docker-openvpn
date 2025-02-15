@@ -36,4 +36,22 @@ jobs:
         run: |
           docker tag openvpn sudoinclabs/openvpn:$LATEST
           docker push --all-tags sudoinclabs/openvpn
+      - name: Build SUDO Duo OpenVPN Image
+        run: |
+          docker build -t sudovpn -f Dockerfile.duo .
+      - name: Tag, and push image to DockerHub
+        run: |
+          docker tag sudovpn sudoinclabs/openvpn:sudovpn-latest
+          docker push --all-tags sudoinclabs/openvpn
+      - name: Set Tag name in output
+        id: current_tag
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Publish and release the new version
+        env:
+          LATEST: ${{ steps.current_tag.outputs.tag }}
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          docker tag sudovpn sudoinclabs/openvpn:sudovpn-$LATEST
+          docker push --all-tags sudoinclabs/openvpn
+
 
