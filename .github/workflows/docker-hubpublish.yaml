@@ -43,9 +43,6 @@ jobs:
         run: |
           docker tag sudovpn sudoinclabs/openvpn:sudovpn-latest
           docker push --all-tags sudoinclabs/openvpn
-      - name: Set Tag name in output
-        id: current_tag
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       - name: Publish and release the new version
         env:
           LATEST: ${{ steps.current_tag.outputs.tag }}
